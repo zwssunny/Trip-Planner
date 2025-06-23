@@ -51,7 +51,7 @@ Tech Stack
 8. Select restaurants with reservation time and special request options. <br />
 ![Restaurants](https://github.com/user-attachments/assets/c68604a5-8938-420b-8123-e673245578fb)
 
-9. 	Generated itinerary showing activities per day with descriptions and estimated cost. <br />
+9. 	ChatGPT API generated itinerary showing activities per day with descriptions and estimated cost. <br />
 ![Itinerary](https://github.com/user-attachments/assets/fef07773-7503-4ebd-b4c3-819afc5e08dd)
 
 10. Final trip summary with budget overview, hotel, restaurant, and activities listed. <br />
