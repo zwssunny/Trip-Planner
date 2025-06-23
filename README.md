@@ -4,17 +4,17 @@ A web app for creating personalized travel itineraries based on destination, tri
 ----------------------------------------------------------
 Features
   
-    User registration and login
+   - User registration and login
 
-    Trip creation with destination, dates, group size, and budget
+   - Trip creation with destination, dates, group size, and budget
 
-    Hotel, restaurant, and activity selection
+   - Hotel, restaurant, and activity selection
 
-    Itinerary generation with detailed schedules and cost breakdowns
+   - Itinerary generation with detailed schedules and cost breakdowns
 
-    Budget summary with hotel, food, and activity expenses
+   - Budget summary with hotel, food, and activity expenses
 
-    Save, view, or delete trips anytime
+   - Save, view, or delete trips anytime
     
 ----------------------------------------------------------
 Tech Stack
