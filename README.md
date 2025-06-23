@@ -30,7 +30,7 @@ Tech Stack
 Landing page with a simple welcome screen and call-to-action button to start planning.
 ![Page1_Home](https://github.com/user-attachments/assets/7b5bee5e-ee0f-435a-a8bb-5458c3f44bbd)
 
-Secure login form with username and password authentication.
+Secure login form with username and password authentication. <br />
 ![Page2_Login](https://github.com/user-attachments/assets/648cd46c-dda3-4aa7-a86d-78ba587eaf1a)
 
 
