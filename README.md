@@ -26,3 +26,6 @@ Tech Stack
    - API Integration: OpenAI API (for itinerary generation)
 
    - Database: SQLite (can be configured for PostgreSQL)
+
+     
+![Page1_Home](https://github.com/user-attachments/assets/7b5bee5e-ee0f-435a-a8bb-5458c3f44bbd)
