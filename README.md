@@ -19,10 +19,10 @@ Features
 ----------------------------------------------------------
 Tech Stack
 
-    Backend: Python, Django
+   - Backend: Python, Django
 
-    Frontend: HTML, CSS, basic JavaScript
+   - Frontend: HTML, CSS, basic JavaScript
 
-    API Integration: OpenAI API (for itinerary generation)
+   - API Integration: OpenAI API (for itinerary generation)
 
-    Database: SQLite (can be configured for PostgreSQL)
+   - Database: SQLite (can be configured for PostgreSQL)
