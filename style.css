@@ -1,0 +1,305 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url("/static/trips/images/bg_new.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+.card-container {
+    max-width: 460px;
+    margin: 60px auto;
+    background-color: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 40px 35px;
+}
+
+.banner {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 180px;
+    max-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    
+}
+
+.banner h1,
+.banner h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+
+
+
+.hotel-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hotel-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hotel-card:hover {
+  border-color: #7c3aed;
+  background-color: #faf7ff;
+}
+
+.hotel-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 70%;
+}
+
+.hotel-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111;
+}
+
+.hotel-location {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.hotel-description {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.hotel-price {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #4f46e5;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.hotel-price span {
+  font-weight: normal;
+  font-size: 0.85rem;
+  color: #888;
+  display: block;
+  margin-top: 2px;
+}
+
+.room-type {
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+input[type="radio"] {
+  transform: scale(1.2);
+  margin-right: 8px;
+  accent-color: #7c3aed;
+}
+
+  
+
+select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    margin-top: 4px;
+    margin-left: 6px;
+}
+
+select:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.continue-btn {
+    background-color: #7c3aed;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.continue-btn:hover {
+    background-color: #5a2bbf;
+}
+
+.restaurant-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 20px;
+}
+
+.restaurant-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 18px 20px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: border 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.restaurant-card:hover {
+  border-color: #7b42f5;
+  background-color: #faf7ff;
+}
+
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.restaurant-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.restaurant-price {
+  font-size: 15px;
+  font-weight: bold;
+  color: #4f46e5;
+}
+
+.price-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: #888;
+  margin-left: 4px;
+}
+
+.restaurant-description {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 10px;
+  margin-top: 4px;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-top: 6px;
+  align-self: flex-start;
+}
+
+.page-background {
+  background-size: cover;
+  background-position: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.trip-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.trip-subtitle {
+  font-size: 1.1rem;
+  color: white;
+  margin-top: 4px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.selection-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-items: center;
+}
+
+.activity-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  cursor: pointer;
+}
+
+.activity-card input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+.activity-card img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}

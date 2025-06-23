@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Trip Planner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url("{% static 'trips/images/bg_new.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-box {
+            background-color: white;
+            padding: 40px;
+            width: 400px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-box img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .register-box h2 {
+            color: #6a1b9a;
+            margin-bottom: 5px;
+        }
+
+        .register-box p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .helptext {
+            font-size: 12px;
+            color: #555;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        ul.errorlist, .errorlist {
+            list-style: none;
+            padding: 0;
+            color: red;
+            font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4a148c;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #00796b;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <img src="{% static 'trips/images/logo_plane.png' %}" alt="logo">
+        <h2>Create Your Account</h2>
+        <p>Sign up to start planning your next trip</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            <div class="helptext">{{ form.username.help_text }}</div>
+            {{ form.username.errors }}
+
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            <div class="helptext">{{ form.password1.help_text }}</div>
+            {{ form.password1.errors }}
+
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            <div class="helptext">{{ form.password2.help_text }}</div>
+            {{ form.password2.errors }}
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </div>
+    </div>
+</body>
+</html>

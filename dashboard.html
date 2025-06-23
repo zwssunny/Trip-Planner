@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'trips/styles/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'trips/images/bg_new.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card-container {
+            max-width: 500px;
+            margin: 60px auto;
+            background-color: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .banner {
+            background: url("{% static 'trips/images/bg_dashboard.jpg' %}") no-repeat center center;
+            background-size: cover;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 30px;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 2rem;
+            margin: 0;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .button-container {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-btn {
+            background-color: #7b42f5;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #5e34c9;
+        }
+    </style>
+</head>
+<body>
+<div class="card-container">
+    <div class="banner">
+        <h1>Welcome to Your Dashboard</h1>
+    </div>
+    <div class="button-container">
+        <a href="{% url 'trip_details' %}" class="dashboard-btn">Create New Trip</a>
+        <a href="{% url 'view_saved_trips' %}" class="dashboard-btn">View Saved Trips</a>
+    </div>
+</div>
+</body>
+</html>

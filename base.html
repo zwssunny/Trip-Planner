@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Trip Planner{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'trips/css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'trips/images/bg_new.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .trip-banner {
+            background-size: cover;
+            background-position: center;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 30px;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+        
+        .trip-banner h1,
+        .trip-banner h2 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        
+
+        .trip-banner p {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .trip-card {
+            background-color: white;
+            margin: -80px auto 40px;
+            border-radius: 2rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="trip-banner" id="trip-banner">
+        <h1>{% block banner_title %}{% endblock %}</h1>
+        <p>{% block banner_subtitle %}{% endblock %}</p>
+    </div>
+
+    <div class="trip-card">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

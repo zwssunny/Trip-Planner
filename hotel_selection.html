@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select a Hotel</title>
+  <link rel="stylesheet" href="{% static 'trips/styles/style.css' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("{% static 'trips/images/bg_new.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card-container {
+      max-width: 540px;
+      margin: 60px auto;
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      padding: 32px;
+    }
+
+    .banner {
+      width: 100%;
+      height: 200px;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      background-image: url("{% static banner %}");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .banner p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 4px 0 0;
+    }
+
+    .hotel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hotel-card {
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      padding: 20px 24px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      min-height: 110px;
+    }
+
+    .hotel-card:hover {
+      border-color: #7c3aed;
+      background-color: #f9f7ff;
+    }
+
+    .hotel-info {
+      flex: 1;
+    }
+
+    .hotel-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hotel-description {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .hotel-price {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4f46e5;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+
+    .room-type {
+      margin-top: 10px;
+    }
+
+    .room-type label {
+      font-weight: 500;
+      margin-right: 0.5rem;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    .continue-btn {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 14px;
+      background-color: #7c3aed;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .continue-btn:hover {
+      background-color: #5b21b6;
+    }
+
+    .back-link {
+      margin-top: 20px;
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="banner">
+      <h1>Select a Hotel</h1>
+      <p>Choose your accommodation</p>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="hotel-list">
+        {% for hotel in hotels %}
+        <label class="hotel-card">
+          <div class="hotel-info">
+            <div>
+              <input type="radio" name="hotel_id" value="{{ hotel.id }}" required>
+              <span class="hotel-name">{{ hotel.name }}</span>
+            </div>
+            <div class="hotel-description">{{ hotel.description }}</div>
+            <div class="room-type">
+              <label for="room_type_{{ hotel.id }}">Room Type:</label>
+              <select name="room_type_{{ hotel.id }}" id="room_type_{{ hotel.id }}">
+                <option value="Standard">Standard</option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="Suite">Suite</option>
+              </select>
+            </div>
+          </div>
+          <div class="hotel-price">
+            ${{ hotel.price_per_night }} per night
+          </div>
+        </label>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="continue-btn">Continue</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}" class="back-link">← Back to Dashboard</a>
+  </div>
+</body>
+</html>
