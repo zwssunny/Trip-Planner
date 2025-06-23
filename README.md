@@ -16,7 +16,7 @@ Features
 
     Save, view, or delete trips anytime
     
-
+----------------------------------------------------------
 Tech Stack
 
     Backend: Python, Django
