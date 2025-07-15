@@ -11,6 +11,7 @@ from common.log import logger
 # 此处的配置值无实际意义，程序不会读取此处的配置，仅用于提示格式，请将配置加入到config.json中
 available_setting = {
     "debug": "False",
+    "port": 8000,
     "openai": {
         "api_key": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxx",
         # 参数指定将生成文本的模型类型。目前支持 gpt-3.5-turbo 和 gpt-3.5-turbo-0301 两种选择

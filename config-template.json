@@ -1,5 +1,6 @@
 {
     "debug": false,
+    "port": 8000,
      "openai": {
         "api_key": "sk-XXXXXXXXXX",
         "model": "gpt-3.5-turbo",
