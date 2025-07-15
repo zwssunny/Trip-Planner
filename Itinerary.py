@@ -1,13 +1,18 @@
-import openai
-from openai import OpenAI
-import os
 import math
 import random
 import re
 from datetime import datetime, timedelta
 
+from openai import OpenAI
+
+from config import conf, load_config
+
+# load config
+load_config()
+deepseek = conf().get("deepseek")
 # Initializes the OpenAI client with personal API Key (Do Not Share This Key)
-client = OpenAI(api_key="API Key Goes Here")
+client = OpenAI(api_key=deepseek["api_key"], base_url=deepseek["api_base"])
+
 
 # Generates day-to-day plan based on user-selected activities and trip length
 def generate_itinerary(activities, days, shuffle=False):
@@ -16,7 +21,7 @@ def generate_itinerary(activities, days, shuffle=False):
     # If no activities provided, fill all days with "Free Time"
     if not activities:
         for i in range(days):
-            itinerary[f'Day {i + 1}'] = ["Free time"]
+            itinerary[f"Day {i + 1}"] = ["Free time"]
         return itinerary
 
     total_activities = len(activities)
@@ -28,7 +33,7 @@ def generate_itinerary(activities, days, shuffle=False):
     # If number of activities matches trip length, assign one activity per day
     if total_activities == days:
         for i in range(days):
-            itinerary[f'Day {i + 1}'] = [activities[i]]
+            itinerary[f"Day {i + 1}"] = [activities[i]]
         return itinerary
 
     # If more activities than days, distribute them evenly across the days
@@ -38,13 +43,14 @@ def generate_itinerary(activities, days, shuffle=False):
         idx = 0
         for i in range(days):
             count = base + (1 if i < remainder else 0)
-            itinerary[f'Day {i + 1}'] = activities[idx:idx+count]
+            itinerary[f"Day {i + 1}"] = activities[idx : idx + count]
             idx += count
         return itinerary
 
     # If fewer activities than days, repeat some activities and insert "Free Time"
     else:
-        estimated_activity_days = math.ceil(days * 0.65)  # Aims for a 65% activity days, 35% free time distribution
+        estimated_activity_days = math.ceil(days * 0.65)
+        # Aims for a 65% activity days, 35% free time distribution
         total_free_days = days - estimated_activity_days
 
         # Repeat activities to fill activity days
@@ -58,7 +64,7 @@ def generate_itinerary(activities, days, shuffle=False):
         random.shuffle(mixed_plan)
 
         for i in range(days):
-            itinerary[f'Day {i + 1}'] = [mixed_plan[i]]
+            itinerary[f"Day {i + 1}"] = [mixed_plan[i]]
 
     return itinerary
 
@@ -84,9 +90,12 @@ def generate_day_time_slots(activity_count, start_time="8:00 AM", end_time="10:0
         if current_time >= end:
             break
         slots.append(current_time.strftime(fmt))
-        current_time += timedelta(minutes=random.choice([90, 100, 120]))        # Sets a time limit of either 90, 100, or 120 minutes for each activity
+        current_time += timedelta(
+            minutes=random.choice([90, 100, 120])
+        )  # Sets a time limit of either 90, 100, or 120 minutes for each activity
 
     return slots
+
 
 # Prompts ChatGPT for a message and estimated cost for a given activity and city
 def get_chatgpt_message_and_cost(activity, city, is_last_day=False):
@@ -106,11 +115,11 @@ def get_chatgpt_message_and_cost(activity, city, is_last_day=False):
 
         try:
             response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[{"role": "user", "content": prompt}]
+                model=deepseek["model"],  # Uses the model specified in the config
+                messages=[{"role": "user", "content": prompt}],
             )
             message = response.choices[0].message.content.strip()
-            return message, "$0.00", 0.0        # Budget cost of a "Free Time" day
+            return message, "$0.00", 0.0  # Budget cost of a "Free Time" day
 
         except Exception as e:
             return f"(GPT error: {e})", "$0.00", 0.0
@@ -133,30 +142,34 @@ def get_chatgpt_message_and_cost(activity, city, is_last_day=False):
                 f"On a new line at the end of your message, write this exactly:\nEstimated Cost: $XX.XX"
             )
 
-
     try:
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[{"role": "user", "content": prompt}]
-            )
+        response = client.chat.completions.create(
+            model=deepseek["model"],  # Uses the model specified in the config
+            messages=[{"role": "user", "content": prompt}],
+        )
 
-            full_text = response.choices[0].message.content.strip()
-            match = re.search(r'[Ee]stimated [Cc]ost[:\-]?\s*\$?(\d+(?:\.\d{1,2})?)', full_text, re.IGNORECASE)     # Extracts the estimated cost produced from ChatGPT using regex
+        full_text = response.choices[0].message.content.strip()
+        match = re.search(
+            r"[Ee]stimated [Cc]ost[:\-]?\s*\$?(\d+(?:\.\d{1,2})?)",
+            full_text,
+            re.IGNORECASE,
+        )  # Extracts the estimated cost produced from ChatGPT using regex
 
-            # If cost value found in the GPT response, format it, Otherwise, mark cost as unavailable
-            if match:
-                cost_val = float(match.group(1))
-                cost_str = f"${cost_val:.2f}"
-            else:
-                cost_val = None
-                cost_str = "N/A"
+        # If cost value found in the GPT response, format it, Otherwise, mark cost as unavailable
+        if match:
+            cost_val = float(match.group(1))
+            cost_str = f"${cost_val:.2f}"
+        else:
+            cost_val = None
+            cost_str = "N/A"
+        # Keep cost line inside the message (Without it, it will remove the estimated cost: XX.XX at the bottom of the activity message)
+        message = full_text  
 
-            message = full_text  # Keep cost line inside the message (Without it, it will remove the estimated cost: XX.XX at the bottom of the activity message)
-
-            return message, cost_str, cost_val
+        return message, cost_str, cost_val
 
     except Exception as e:
-            return f"(GPT error: {e})", "N/A", None
+        return f"(GPT error: {e})", "N/A", None
+
 
 # Gemerates full itinerary with message, cost, and time for each activity
 def create_itinerary_with_messages(activities, days, city, shuffle=False):
@@ -165,28 +178,37 @@ def create_itinerary_with_messages(activities, days, city, shuffle=False):
 
     # Loop through each day in itinerary with its lists of activities
     for i, (day, activity_list) in enumerate(itinerary.items()):
-        is_final_day = (i == len(itinerary) - 1)        # Checks if this is last day of trip
-        time_slots = generate_day_time_slots(len(activity_list))        # Generates time slots for the day's activities
+        is_final_day = i == len(itinerary) - 1  # Checks if this is last day of trip
+        time_slots = generate_day_time_slots(
+            len(activity_list)
+        )  # Generates time slots for the day's activities
 
         messages = []
         for j, activity in enumerate(activity_list):
-            is_last_activity = (j == len(activity_list) - 1)        # Check if thius is the last activity of the day
-            is_last_day = is_final_day and is_last_activity         # True only if this is the final activity of last day
+            is_last_activity = (
+                j == len(activity_list) - 1
+            )  # Check if thius is the last activity of the day
+            is_last_day = (
+                is_final_day and is_last_activity
+            )  # True only if this is the final activity of last day
 
             # Get GPT Message and estimated cost
-            message, cost_str, cost_val = get_chatgpt_message_and_cost(activity, city, is_last_day)
+            message, cost_str, cost_val = get_chatgpt_message_and_cost(
+                activity, city, is_last_day
+            )
             time = time_slots[j] if j < len(time_slots) else "Unscheduled"
 
             # Append this activity's details to the day's plan
-            messages.append({
-                "Activity": activity,
-                "Message": message,
-                "Time": time,
-                "Cost": cost_str,
-                "RawCost": cost_val
-            })
+            messages.append(
+                {
+                    "Activity": activity,
+                    "Message": message,
+                    "Time": time,
+                    "Cost": cost_str,
+                    "RawCost": cost_val,
+                }
+            )
 
         detailed_plan[day] = messages
 
     return detailed_plan
-

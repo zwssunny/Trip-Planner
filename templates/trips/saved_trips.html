@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saved Trips</title>
+    <link rel="stylesheet" href="{% static 'trips/styles/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'trips/images/bg_new.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background-color: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #4b0082;
+            margin-bottom: 30px;
+        }
+
+        .trip-card {
+            background-color: #f9f9ff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .trip-card h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .trip-card p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .trip-actions {
+            margin-top: 15px;
+        }
+
+        .trip-actions a {
+            text-decoration: none;
+            margin-right: 10px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .trip-actions .view-btn {
+            background-color: #7c3aed;
+            color: white;
+        }
+
+        .trip-actions .delete-btn {
+            background-color: #e53e3e;
+            color: white;
+        }
+
+        .trip-actions .view-btn:hover {
+            background-color: #5a2bbf;
+        }
+
+        .trip-actions .delete-btn:hover {
+            background-color: #c53030;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Saved Trips</h1>
+
+        {% if trips %}
+            {% for trip in trips %}
+                <div class="trip-card">
+                    <h2>{{ trip.name }} - {{ trip.destination }}</h2>
+                    <p><strong>Dates:</strong> {{ trip.start_date }} to {{ trip.end_date }}</p>
+                    <p><strong>Group Size:</strong> {{ trip.group_size }}</p>
+                    
+                    <div class="activity-list">
+                        {% for date, activity in trip.activities.items %}
+                            <div class="activity-item">
+                                <strong>{{ date }}</strong> {{ activity }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="trip-actions">
+                        <a href="{% url 'view_trip' trip.id %}" class="view-btn">View</a>
+                        <a href="{% url 'delete_trip' trip.id %}" class="delete-btn">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">You haven't saved any trips yet.</p>
+        {% endif %}
+        <a href="{% url 'dashboard' %}" class="back-link">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

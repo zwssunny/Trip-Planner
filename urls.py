@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import path
 from .views import (
     welcome_view,
@@ -21,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', welcome_view, name='welcome'),
+    path('admin/', admin.site.urls),
     path('register/', register_view, name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', logout_view, name='logout'),
