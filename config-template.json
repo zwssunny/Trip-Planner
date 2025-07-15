@@ -1,0 +1,24 @@
+{
+    "debug": false,
+     "openai": {
+        "api_key": "sk-XXXXXXXXXX",
+        "model": "gpt-3.5-turbo",
+        "temperature": 1,
+        "max_tokens": 2000,
+        "top_p": 1.0,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "stop_ai": "stop",
+        "prefix": "请简单回答：",
+        "proxy": "127.0.0.1:7890",
+        "api_base": "https://api.openai.com/v1"
+    },
+    "deepseek": {
+        "api_key": "sk-XXXXXXXXX",
+        "model": "deepseek-chat",
+        "max_tokens": 2000,
+        "stop_ai": "stop",
+        "prefix": "请简单回答：",
+        "api_base": "https://api.deepseek.com"
+    }
+}
