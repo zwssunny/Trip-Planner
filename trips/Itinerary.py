@@ -9,9 +9,10 @@ from config import conf, load_config
 
 # load config
 load_config()
-deepseek = conf().get("deepseek")
+robotname = conf().get("robot", "deepseek").lower()
+robotconfig = conf().get(robotname)
 # Initializes the OpenAI client with personal API Key (Do Not Share This Key)
-client = OpenAI(api_key=deepseek["api_key"], base_url=deepseek["api_base"])
+client = OpenAI(api_key=robotconfig["api_key"], base_url=robotconfig["api_base"])
 
 
 # Generates day-to-day plan based on user-selected activities and trip length
@@ -115,7 +116,7 @@ def get_chatgpt_message_and_cost(activity, city, is_last_day=False):
 
         try:
             response = client.chat.completions.create(
-                model=deepseek["model"],  # Uses the model specified in the config
+                model=robotconfig["model"],  # Uses the model specified in the config
                 messages=[{"role": "user", "content": prompt}],
             )
             message = response.choices[0].message.content.strip()
@@ -144,7 +145,7 @@ def get_chatgpt_message_and_cost(activity, city, is_last_day=False):
 
     try:
         response = client.chat.completions.create(
-            model=deepseek["model"],  # Uses the model specified in the config
+            model=robotconfig["model"],  # Uses the model specified in the config
             messages=[{"role": "user", "content": prompt}],
         )
 

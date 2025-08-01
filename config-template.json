@@ -1,7 +1,9 @@
 {
-    "debug": false,
+    "debug": true,
     "port": 8000,
-     "openai": {
+    "allowed_host": ["127.0.0.1", "localhost"],
+    "robot": "deepseek",
+    "openai": {
         "api_key": "sk-XXXXXXXXXX",
         "model": "gpt-3.5-turbo",
         "temperature": 1,

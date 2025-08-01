@@ -12,6 +12,8 @@ from common.log import logger
 available_setting = {
     "debug": "False",
     "port": 8000,
+    "allowed_host": ["127.0.0.1", "localhost"],
+    "robot": "deepseek",
     "openai": {
         "api_key": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxx",
         # 参数指定将生成文本的模型类型。目前支持 gpt-3.5-turbo 和 gpt-3.5-turbo-0301 两种选择
