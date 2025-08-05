@@ -90,7 +90,7 @@ DATABASES = {
 #         "ENGINE": "django.db.backends.postgresql",
 #         "NAME": "trips_db",
 #         "USER": "postgres",
-#         "PASSWORD": "ps61235189",
+#         "PASSWORD": "your_password_here",
 #         "HOST": "127.0.0.1",
 #         "PORT": "5432",
 #     }
