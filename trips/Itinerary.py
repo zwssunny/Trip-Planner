@@ -9,7 +9,7 @@ from config import conf, load_config
 
 # load config
 load_config()
-robotname = conf().get("robot", "deepseek").lower()
+robotname = conf().get("agent", "deepseek").lower()
 robotconfig = conf().get(robotname)
 # Initializes the OpenAI client with personal API Key (Do Not Share This Key)
 client = OpenAI(api_key=robotconfig["api_key"], base_url=robotconfig["api_base"])

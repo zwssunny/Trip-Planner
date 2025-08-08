@@ -19,6 +19,8 @@ from .views import (
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('', welcome_view, name='welcome'),
@@ -36,4 +38,5 @@ urlpatterns = [
     path('dashboard/saved/', view_saved_trips, name='view_saved_trips'),
     path('trip/view/<int:trip_id>/', view_trip, name='view_trip'),
     path('trip/delete/<int:trip_id>/', delete_trip, name='delete_trip'),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('icons/favicon.ico'))),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
